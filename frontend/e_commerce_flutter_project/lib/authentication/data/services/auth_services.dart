@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:e_commerce_flutter_project/constants.dart';
 
 class AuthServices {
-  Future<Result<Response>> registerWithEmailAndPassword(
+  Future<Result<Response>> registerWithNameEmailAndPassword(
+    String name,
     String email,
     String password,
   ) async {
@@ -10,6 +11,30 @@ class AuthServices {
     try {
       Response response = await dio.post(
         '${Constants.mainUrl}register',
+        data: {'name': name,'email': email, 'password': password},
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+
+      return Result.success(data: response);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        return Result.failure(error: e.response?.data['message']);
+      } else {
+        return handleError(e);
+      }
+    } catch (e) {
+      return Result.failure(error: 'An unknown error occurred: $e');
+    }
+  }
+
+  Future<Result<Response>> signInWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    Dio dio = Dio();
+    try {
+      Response response = await dio.post(
+        '${Constants.mainUrl}login',
         data: {'email': email, 'password': password},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );

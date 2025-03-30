@@ -1,4 +1,6 @@
-import 'package:e_commerce_flutter_project/login_page.dart';
+import 'package:e_commerce_flutter_project/authentication/presentation/screens/register_screen.dart';
+import 'package:e_commerce_flutter_project/generate_route.dart';
+import 'package:e_commerce_flutter_project/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const LoginPage(),
+      home: const RegisterScreen(),
+      theme: lightTheme,
+      onGenerateRoute: generateRoute,
+      initialRoute: '/register',
       title: 'Flutter Demo',);
   }
   

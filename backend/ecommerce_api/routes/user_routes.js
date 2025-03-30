@@ -4,7 +4,9 @@ const {verifyTokenMiddleware,verifyIsAdminMiddleware} = require("../middlewares/
 
 const router = express.Router()
 
-
+router.get("/",(req,res)=>{
+    res.send("hello")
+})
 router.post("/registerUser",registerUser)
 router.post("/loginUser",loginUser)
 router.get("/users",verifyTokenMiddleware,getUsers)
